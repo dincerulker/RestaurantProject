@@ -1,0 +1,39 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dropdown-link {
+    width: 343px;
+    height: 150px;
+    border-radius: 9px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.brand-text-style {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.text-style {
+    font-size: 12px;
+    opacity: 50%;
+}
+
+.input-style{
+    width: 343px;
+    height: 51px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    border: 0;
+    border-radius: 9px;
+    background: url(./images/search.png) no-repeat;
+    background-position: 14.71px 17.71px;
+}
+
+.input-style::placeholder {
+    font-size: 14px;
+    opacity: 40%;
+    position: relative;
+    left: 39px;
+}
