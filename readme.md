@@ -1,10 +1,10 @@
 # Yapılan uygulamada verilen API ile restaurant bilgileri siteye yüklenmiştir.
 
-# geo location restaurant yakınlıkları gösterilmiştir.
+## geo location restaurant yakınlıkları gösterilmiştir.
 
-# API üzerinde çok fazla veri olduğundan dolayı infinite-scroll özelliği ile her sayfa sonuna gelindiğinde 10 ürün daha yüklenecek şekilde düzenlenmiştir.
+## API üzerinde çok fazla veri olduğundan dolayı infinite-scroll özelliği ile her sayfa sonuna gelindiğinde 10 ürün daha yüklenecek şekilde düzenlenmiştir.
 
-# Uygulama yalnızca mobile cihazlar için mobile görünümde tasarlanmıştır.
+## Uygulama yalnızca mobile cihazlar için mobile görünümde tasarlanmıştır.
 
 ## Ekran görüntüleri
 
