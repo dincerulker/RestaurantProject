@@ -22,11 +22,15 @@ function apiSorgu() {
             console.log(result);
             $.each(result.response, function (key, value) {
 
+                var minOrder = value.storeInfo.minOrderPrice; // Min-order info
+                var openTime = value.storeInfo.workingHours[0].open; // opening time
+                var closeTime = value.storeInfo.workingHours[0].close; // closing time
+
                 /* Mesafe hesaplama
                 *****************************************************************************/
                 var ltd = value.storeInfo.geoLocation.latitude;
                 var lon = value.storeInfo.geoLocation.longitude;
-                function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+                function mesafeHesapla(lat1, lon1, lat2, lon2) {
 
                     var R = 6371;
                     var dLat = deg2rad(lat2 - lat1);
@@ -45,36 +49,46 @@ function apiSorgu() {
                     return deg * (Math.PI / 180) // dereceyi rad'a dönüştürme
                     
                 }
+
                 /* Anlık konuma göre mesafe hesaplama
                 *****************************************************************************/
                 for (let i = 0; i < result.response.length; i++) {
 
-                    let distance = getDistanceFromLatLonInKm(parseInt(latBrowser),
+                    let distance = mesafeHesapla(parseInt(latBrowser),
                         parseInt(longBrowser), result.response[i].storeInfo.geoLocation.latitude,
                         result.response[i].storeInfo.geoLocation.longitude);
                     jsonDistance = JSON.parse(distance.toFixed(0));
 
                 }
 
+                if(value.storeInfo.workingHours[0].closed == false){
+                    var openClosed = "İşletme Açık : ";
+                }else {
+                    var openClosed = "İşletme Kapalı:";
+                }
+
                 /* Image olmayan restaurantlar için dummy image ekleme
                 *****************************************************************************/
-               
                 if (value.images.length > 0) {
                     var image = value.images[0].base64;
                 } else {
                     var image = emptyImage;
                 }
-
                 if(value.text == ""){
-                    value.text = "Restaurant açıklaması bulunmamaktadır.";
+                    value.text = "Restaurant açıklaması eklenecek.";
                 }
 
-                $(".container").append('<div class="d-flex flex-wrap align-items-center justify-content-between  mb-4 border-bottom col-sm-1">');
-                $(".container").append('<img class="dropdown-link img-style" src="' + image + '" />');
-                $(".container").append('<div class="card-title fw-bold brand-text-style px-2 mt-2">' + value.title + '</div>');
-                $(".container").append('<div class="card-title text-style p-2">' + value.text + '</div>');
-                $(".container").append('<div class="card-title text-style p-2">' + jsonDistance + ' km mesafede' + '</div>');
-
+                if(jsonDistance > 1000){
+                    // Geo location bilgileri 0 olan restaurantlar için yapılmıştır.
+                    jsonDistance = "1000+"
+                }
+                $(".container2").append('<div class="d-flex flex-wrap align-items-center justify-content-between mb-4 border-bottom col-sm-1">');
+                $(".container2").append('<img class="dropdown-link img-style" src="' + image + '" />');
+                $(".container2").append('<div class="card-title fw-bold brand-text-style px-2 mt-2">' + value.title + '</div>');
+                $(".container2").append('<div class="card-title text-style p-2 text-margin">' + value.text + '</div>');
+                $(".container2").append('<div class="card-title text-dark float-element"><img src="./images/shopping.png" /> <span class="basket-title"> Min. Sipariş Tutarı: ₺ ' + minOrder + '</span> </div>');
+                $(".container2").append('<div class="dis-flex"><div class="card-title text-dark p-2 distance-text me-3">' + jsonDistance + ' km mesafede' +'</div><div class="card-title text-green p-2 distance-text">' + openClosed + '<span class=" text-gray ">'+ openTime +''+ ' / ' +'</span><span class=" text-gray ">' + closeTime + '</span></div></div>');
+              
                 // console.log(ltd);
                 // console.log(lon);
                 // console.log(latBrowser);
@@ -91,8 +105,8 @@ function apiSorgu() {
 
 /* Infinite-Scroll
 *****************************************************************************/
-var limit = 5;
-var skip = 0;
+var limit = 10;
+var skip = 60; 
 apiSorgu();
 
 $(window).scroll(function () {
@@ -111,7 +125,7 @@ let latBrowser, longBrowser = "";
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(onSuccess, onError);
 } else {
-    alert("Tarayıcı konum bilgisi sağlamıyor!")
+    alert("Tarayıcı konum bilgisi sağlamıyor !")
 }
 
 function onSuccess(position) {
@@ -121,9 +135,9 @@ function onSuccess(position) {
 
 function onError(error) {
     if (error.code == 1) {
-        alert("Konum erişim izni reddedildi");
+        alert("Konum erişim izni reddedildi !");
     } else if (error.code == 2) {
-        alert("Konum alınamadı.")
+        alert("Konum bilgisi alınamadı !")
     } else {
         alert("Bir hata oluştu")
     }

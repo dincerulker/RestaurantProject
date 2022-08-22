@@ -2,7 +2,29 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+html,
+body {
+    height: 100%;
+}
+
+.content-wrapper {
+    width: 374px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 90%;
+    box-sizing: border-box;
+
+}
+
+@media screen and (max-width: 400px) {
+    .content-wrapper {
+        margin-right: auto;
+        box-sizing: border-box;
+    }
+}
+
 .dropdown-link {
+    position: relative;
     width: 343px;
     height: 150px;
     border-radius: 9px;
@@ -21,7 +43,8 @@ body {
     opacity: 50%;
 }
 
-.input-style{
+
+.input-style {
     width: 343px;
     height: 51px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
@@ -36,4 +59,38 @@ body {
     opacity: 40%;
     position: relative;
     left: 39px;
+}
+
+.float-element {
+    margin-left: 180px;
+    margin-right: auto;
+    
+}
+
+.basket-title {
+    font-size: 12px;
+    opacity: 50%;
+}
+
+.distance-text {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.text-margin {
+    margin-top: -5px;
+}
+
+.dis-flex {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.text-green{
+    color: #34C47C;
+}
+
+.text-gray {
+    color: #1A182480 ;
 }
